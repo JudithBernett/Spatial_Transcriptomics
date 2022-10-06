@@ -24,11 +24,11 @@ print(len(markers))
 tg.pp_adatas(ad_sc, ad_sp, genes=markers)
 
 ##### Map
-# either using cpu or using GPU
+# either using cpu or using GPU, I strongly recommend GPU, either from the server or from Google Collab
 ad_map = tg.map_cells_to_space(
     adata_sc=ad_sc,
     adata_sp=ad_sp,
-    device='cpu',
-    #device='cuda:0',
+    #device='cpu',
+    device='cuda:0',
 )
 ad_map.write(filename='data/ad_maps/ad_map1.h5ad')
