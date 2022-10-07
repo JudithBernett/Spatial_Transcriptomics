@@ -1,7 +1,7 @@
+#library(devtools)
+#install_github("navinlabcode/CellTrek")
 library(data.table)
 library(CellTrek)
-library(dplyr)
-library(Seurat)
 
 # Read in Data
 brain_st_cortex <- readRDS("data/brain_st_cortex.rds")
