@@ -1,0 +1,78 @@
+---
+title: "CellTrek Notebook"
+output: html_notebook
+---
+```{r}
+library(data.table)
+library(ggplot2)
+library(CellTrek)
+library(dplyr)
+library(Seurat)
+library(RColorBrewer)
+```
+
+```{r}
+brain_st_cortex <- readRDS("data/brain_st_cortex.rds")
+print(dim(brain_st_cortex))
+brain_sc <- readRDS("data/brain_sc.rds")
+print(dim(brain_sc))
+brain_sc <- brain_sc[, sample(colnames(brain_sc), size = 500, replace=F), ]
+print(dim(brain_sc))
+## Rename the cells/spots with syntactically valid names
+brain_st_cortex <- RenameCells(brain_st_cortex, new.names=make.names(Cells(brain_st_cortex)))
+brain_sc <- RenameCells(brain_sc, new.names=make.names(Cells(brain_sc)))
+```
+```{r}
+SpatialDimPlot(brain_st_cortex)
+DimPlot(brain_sc, label = T, label.size = 4.5)
+```
+
+```{r}
+coord_lists <- readRDS("~/coord_lists_topspot1.rds")
+all_coords <- rbindlist(coord_lists, idcol="run")
+all_coords_wide <- dcast(all_coords, id ~ run, drop=FALSE, value.var=c("coord_x", "coord_y"))
+
+rowDistsMean <- function(tmprow) {
+  tmpx <- tmprow[2:11]
+  tmpy <- tmprow[12:21]
+  return(mean(dist(t(rbind(tmpx, tmpy))), na.rm = TRUE))
+}
+rowDistsMedian <- function(tmprow) {
+  tmpx <- tmprow[2:11]
+  tmpy <- tmprow[12:21]
+  return(median(dist(t(rbind(tmpx, tmpy))), na.rm = TRUE))
+}
+dists <- data.table(id=all_coords_wide$id, mean=apply(all_coords_wide, 1, rowDistsMean))
+dists$median <- apply(all_coords_wide, 1, rowDistsMedian)
+dists <- melt(dists, measure.var = c("mean", "median"), variable.name = "euclidean distance", value.name="value")
+ggplot(dists, aes(x = `euclidean distance`, y = value))+
+  geom_boxplot()+
+  theme_minimal()
+```
+After cell charting, we can interactively visualize the CellTrek result using the code from celltrek_vis
+
+```{r}
+coords1 <- as.data.table(coord_lists[[1]])
+coords1 <- coords1[!is.na(cell_type)]
+img_temp <- brain_st_cortex@images$anterior1@image
+scale_factor <- brain_st_cortex@images$anterior1@scale.factors$lowres
+pnt_colors <- colorRampPalette(brewer.pal(9, 
+                "Set1"))(length(levels(coords1$cell_type)))
+plotly::plot_ly(d = coords1, 
+                x = ~coord_y * scale_factor, 
+                y = ~ dim(img_temp)[1] - coord_x * scale_factor, customdata = ~id, 
+                color = ~cell_type,
+                colors = pnt_colors,
+                type = "scatter", 
+                mode = "markers", 
+                marker = list(line = list(color = "rgb(1,1,1)", 
+                width = 0.5), size = 8, opacity = 0.8)) %>% 
+  plotly::layout(xaxis = list(range = c(0, dim(img_temp)[2]), showgrid = FALSE, showline = FALSE), 
+                 yaxis = list(range = c(0, dim(img_temp)[1]), showgrid = FALSE, showline = FALSE), 
+                 images = list(source = plotly::raster2uri(as.raster(img_temp)),
+                               x = 0, y = 0, sizex = dim(img_temp)[2], 
+                               sizey = dim(img_temp)[1], xref = "x", yref = "y", 
+                               xanchor = "left", yanchor = "bottom", 
+                               layer = "below", sizing = "stretch")
+                 )
+```

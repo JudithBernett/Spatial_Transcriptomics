@@ -22,3 +22,10 @@ gunzip data/metadata.csv.gz
 5. Run ```obtain_tangram_ad_maps``` to get all mappings
 6. Run ```obtain_tangram_expressions``` to get all gene expression predictions
 7. Run ```process_results``` to get the dataframes needed for visualization
+
+## CellTrek
+1. Download the CellTrek sample data from their Dropbox and put them into the data folder: 
+   1. scRNA-seq data: https://www.dropbox.com/s/ruseq3necn176c7/brain_sc.rds?dl=0
+   2. ST data: https://www.dropbox.com/s/azjysbt7lbpmbew/brain_st_cortex.rds?dl=0
+2. Run ```celltrek_runs.R``` on a server to obtain the results 
+3. Follow ```celltrek.Rmd``` for visualization
