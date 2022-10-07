@@ -5,11 +5,11 @@ import tangram as tg
 
 # we follow the Tangram Tutorial without squidpy
 
-##### Load and visualize the spatial data
+##### Load and visualize the spatial data:  Slide-seq data, 9852 spatial voxels, 24518 genes
 ad_sp = sc.read_h5ad('data/slideseq_MOp_1217.h5ad')
 print(ad_sp)
 
-##### Load single cell data
+##### Load single cell data, MOp 10Xv3 dataset, approximately 26k profiled cells with 28k genes
 ad_sc = sc.read_h5ad('data/mop_sn_tutorial.h5ad')
 print(ad_sc)
 # normalize the number of counts within each cell to a fixed  number
