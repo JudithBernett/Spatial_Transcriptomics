@@ -2,17 +2,22 @@
 #install_github("navinlabcode/CellTrek")
 library(data.table)
 library(CellTrek)
+library(Seurat)
 
 # Read in Data
+print('Reading ST data ...')
 brain_st_cortex <- readRDS("data/brain_st_cortex.rds")
 print(dim(brain_st_cortex))
+print('Reading SC data ...')
 brain_sc <- readRDS("data/brain_sc.rds")
 print(dim(brain_sc))
 # Subsample
+print('Subsampling SC data ...')
 brain_sc <-
   brain_sc[, sample(colnames(brain_sc), size = 500, replace = F),]
 print(dim(brain_sc))
 # Rename the cells/spots with syntactically valid names
+print('Renaming cells/spots')
 brain_st_cortex <-
   RenameCells(brain_st_cortex, new.names = make.names(Cells(brain_st_cortex)))
 brain_sc <-
