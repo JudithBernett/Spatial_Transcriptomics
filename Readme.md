@@ -19,4 +19,5 @@ gunzip data/metadata.csv.gz
 ```
 3. For STARMAP download https://zenodo.org/record/3967291#.Yz7aAexBxJU and transfer the Spatial/Starmap/visual_1020/20180505_BY3_1kgenes/ folder to data
 4. Convert the Smart-Seq2 and STARMAP datasets to h5ad files with ```convert_to_h5ad.py```
-5. Make a directory data/ad_maps/ and run obtain_tangram_ad_maps to get all mappings
+5. Run ```obtain_tangram_ad_maps``` to get all mappings
+6. Run ```obtain_tangram_expressions``` to get all gene expression predictions
