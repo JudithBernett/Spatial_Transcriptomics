@@ -21,3 +21,4 @@ gunzip data/metadata.csv.gz
 4. Convert the Smart-Seq2 and STARMAP datasets to h5ad files with ```convert_to_h5ad.py```
 5. Run ```obtain_tangram_ad_maps``` to get all mappings
 6. Run ```obtain_tangram_expressions``` to get all gene expression predictions
+7. Run ```process_results``` to get the dataframes needed for visualization
