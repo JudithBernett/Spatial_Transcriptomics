@@ -56,7 +56,7 @@ for dataset in ['SlideSeq', 'STARmap']:
             print(f"#### Mapping {i} vs. {j} ####")
             print(f'Pearson normal: {r}')
             all_pearsons.append(r)
-    mapping_df = pd.wide_to_long(mapping_df, ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'], i=['x', 'y'], j='cell',
+    mapping_df = pd.wide_to_long(mapping_df, ['0', '1', '2', '3', '4', '5', '6', '7', '8'], i=['x', 'y'], j='cell',
                                  sep='_')
     mapping_df = mapping_df.reset_index()
     mapping_df = pd.melt(mapping_df, id_vars=['x', 'y', 'cell'], var_name='run', value_name='probability')
