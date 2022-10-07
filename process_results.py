@@ -66,7 +66,7 @@ for dataset in ['SlideSeq', 'STARmap']:
     df.to_csv(f"data/correlations_mappings_{dataset}.csv")
 
     # Gene expression data
-    path_ge = f"data/gene_exprs/{dataset}"
+    path_ge = f"data/gene_exprs/{dataset}/"
     all_objects = os.listdir(path_ge)
     all_pearsons_train = []
     all_pearsons_test = []
