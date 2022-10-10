@@ -27,5 +27,6 @@ gunzip data/metadata.csv.gz
 1. Download the CellTrek sample data from their Dropbox and put them into the data folder: 
    1. scRNA-seq data: https://www.dropbox.com/s/ruseq3necn176c7/brain_sc.rds?dl=0
    2. ST data: https://www.dropbox.com/s/azjysbt7lbpmbew/brain_st_cortex.rds?dl=0
-2. Run ```celltrek_runs.R``` on a server to obtain the results 
-3. Follow ```celltrek.Rmd``` for visualization
+2. Open R, write renv::restore(). If it asks you: Would you like to activate this project before restore? [Y/n], click Y and install all dependencies.
+3. Run ```celltrek_runs.R``` on a server to obtain the results 
+4. Follow ```celltrek.Rmd``` for visualization

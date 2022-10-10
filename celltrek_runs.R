@@ -12,9 +12,9 @@ print('Reading SC data ...')
 brain_sc <- readRDS("data/brain_sc.rds")
 print(dim(brain_sc))
 # Subsample
-print('Subsampling SC data ...')
-brain_sc <-
-  brain_sc[, sample(colnames(brain_sc), size = 500, replace = F),]
+# print('Subsampling SC data ...')
+# brain_sc <-
+#  brain_sc[, sample(colnames(brain_sc), size = 500, replace = F),]
 print(dim(brain_sc))
 # Rename the cells/spots with syntactically valid names
 print('Renaming cells/spots')
