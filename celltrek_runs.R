@@ -70,4 +70,4 @@ for (i in c(1:9)) {
 }
 
 names(coord_lists) <- c(1:9)
-saveRDS(coord_lists, "coord_lists_topspot1.rds")
+saveRDS(coord_lists, "data/coord_lists_topspot1.rds")

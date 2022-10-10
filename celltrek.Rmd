@@ -28,7 +28,7 @@ DimPlot(brain_sc, label = T, label.size = 4.5)
 ```
 
 ```{r}
-coord_lists <- readRDS("~/coord_lists_topspot1.rds")
+coord_lists <- readRDS("data/coord_lists_topspot1.rds")
 all_coords <- rbindlist(coord_lists, idcol="run")
 all_coords_wide <- dcast(all_coords, id ~ run, drop=FALSE, value.var=c("coord_x", "coord_y"))
 
